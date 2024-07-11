@@ -445,7 +445,7 @@ for (let h of mainContainer[0].children[0].children)
     
     let sk = h.innerHTML;
     console.log("Adding icon for " + sk);
-    h.innerHTML = `<img style='rotate: 180deg; float:left' src='https://wiki.idleclans.com/images/thumb/${skIcons(sk)}${(sk == "Attack" ? "Rigour" : sk)}.png/24px-${(sk == "Attack" ? "Rigour" : sk)}.png'><span style='float:right'>${sk}</span>`;
+    h.innerHTML = `<div class='headerContainer'><img style='rotate: 180deg; float:left' src='https://wiki.idleclans.com/images/thumb/${skIcons(sk)}${(sk == "Attack" ? "Rigour" : sk)}.png/24px-${(sk == "Attack" ? "Rigour" : sk)}.png'><span style='float:right'>${sk}</span></div>`;
   }
 
 function fetchPlayerData(player) {
