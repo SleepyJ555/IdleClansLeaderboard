@@ -1,0 +1,116 @@
+<html>
+<head>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
+<style>
+.search-container {
+    position: relative;
+}
+
+.header {
+  background-color: #111; 
+}
+
+td:first-child {
+  background-color: #111 !important;
+  color:white;
+  border: none;
+    height: 30px;
+}
+
+#instructions {
+  color: black;
+  background-color: white !important;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: yellow;
+}
+
+th {
+  width: 80px;
+  height: 120px;
+  writing-mode: vertical-lr;
+  rotate: 180deg;
+  width: 50px;
+  user-drag: none;
+  user-select: none;
+  color: white;
+  background-color: #111;
+  padding: 10px 0px;
+  text-align: right;
+}
+
+th:first-child {
+  rotate: 0deg;
+  writing-mode: unset;
+  font-size: 24px;
+  text-align: center;
+}
+
+.special {
+  color: yellow;
+  background-color: #222;
+}
+
+span {
+  display: block;
+}
+
+table {
+  border-radius: 10px;
+  border: 3px solid black;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+td {
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+
+#search-input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-weight: bolder;
+  font-size: 28px;
+  margin-bottom: 12px;
+  background-color: lightblue;
+  color: black;
+}
+
+#main-container {
+    margin-top: 20px;
+  clear: left;
+}
+
+.market-entry {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+#progress {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+</style>
+</head>
+<body>
+<!--<div class="search-container">
+        <input type="text" id="search-input" placeholder="Enter clan name...">
+    </div>
+-->
+<button style='float: left'  onclick='pullData()'>Pull Data</button> <span style='float: left' id='progress'>0%</span>
+<table style='clear:left' id="main-container"></table>
+</body>
+</html>
+
+<script>
+</script>
