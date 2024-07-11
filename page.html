@@ -113,4 +113,391 @@ td {
 </html>
 
 <script>
+
+var playerList = [
+  {name: "MomOfChoas", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "C410na3r", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "Chenson", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "NetflixNKill", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "PsiMissing", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "PsiFound", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "PsiWolf", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "ZekeRose", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "ZekeMk2", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "ZekeMk3", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "CaptJettSparrow", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "Coal4UrSoul", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "GrimReaper411", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "TrashReaper411", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "ElediahReaper", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "Radyth", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "RadythV2", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "RadythV3", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "BBashiri", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+]
+
+var xpTable = [
+  0,
+  75,
+  151,
+  227,
+  303,
+  380,
+  531,
+  683,
+  836,
+  988,
+  1141,
+  1294,
+  1447,
+  1751,
+  2054,
+  2358,
+  2663,
+  2967,
+  3272,
+  3577,
+  4182,
+  4788,
+  5393,
+  5999,
+  6606,
+  7212,
+  7819,
+  9026,
+  10233,
+  11441,
+  12648,
+  13856,
+  15065,
+  16273,
+  18682,
+  21091,
+  23500,
+  25910,
+  28319,
+  30729,
+  33140,
+  37950,
+  42761,
+  47572,
+  52383,
+  57195,
+  62006,
+  66818,
+  76431,
+  86043,
+  95656,
+  105269,
+  114882,
+  124496,
+  134109,
+  153323,
+  172538,
+  191752,
+  210967,
+  230182,
+  249397,
+  268613,
+  307028,
+  345444,
+  383861,
+  422277,
+  460694,
+  499111,
+  537528,
+  614346,
+  691163,
+  767981,
+  844800,
+  921618,
+  998437,
+  1075256,
+  1228875,
+  1382495,
+  1536114,
+  1689734,
+  1843355,
+  1996975,
+  2150596,
+  2457817,
+  2765038,
+  3072260,
+  3379481,
+  3686703,
+  3993926,
+  4301148,
+  4915571,
+  5529994,
+  6144417,
+  6758841,
+  7373264,
+  7987688,
+  8602113,
+  9830937,
+  11059762,
+  12288587,
+  13517412,
+  14746238,
+  15975063,
+  17203889,
+  19661516,
+  22119142,
+  24576769,
+  27034396,
+  29492023,
+  31949651,
+  34407278,
+  39322506,
+  44237735,
+  49152963,
+  54068192,
+  58983421,
+  63898650,
+  68813880,
+  78644309,
+  88474739
+]
+
+function xpToLvl (xp)
+{
+  let i = 0;
+  while (xp >= xpTable[i])
+    i++;
+  
+  return i;
+}
+
+function calcSkillGroup(player, type)
+{      
+  if (type == "worst combat")
+  {
+    return Math.min(((xpToLvl(player.skillExperiences.attack) + xpToLvl(player.skillExperiences.strength))/2 + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3, (xpToLvl(player.skillExperiences.archery) + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3, (xpToLvl(player.skillExperiences.magic) + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3).toFixed(0);
+  }
+  else if (type == "best combat")
+    {
+      return Math.max(((xpToLvl(player.skillExperiences.attack) + xpToLvl(player.skillExperiences.strength))/2 + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3, (xpToLvl(player.skillExperiences.archery) + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3, (xpToLvl(player.skillExperiences.magic) + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3).toFixed(0);
+    }
+  else if (type == "reckoning")
+    {
+      return ((xpToLvl(player.skillExperiences.crafting) + xpToLvl(player.skillExperiences.fishing) + xpToLvl(player.skillExperiences.cooking) + xpToLvl(player.skillExperiences.mining) + xpToLvl(player.skillExperiences.smithing) + xpToLvl(player.skillExperiences.plundering)) / 6).toFixed(0);
+    }
+  else if (type == "guardians")
+    {
+      return ((xpToLvl(player.skillExperiences.crafting) + xpToLvl(player.skillExperiences.woodcutting) + xpToLvl(player.skillExperiences.carpentry) + xpToLvl(player.skillExperiences.foraging) + xpToLvl(player.skillExperiences.farming) + xpToLvl(player.skillExperiences.brewing)) / 6).toFixed(0); 
+    }
+    
+  return 0;
+}
+
+function sortTable (sortBy)
+{
+  console.log("Sorting by " + sortBy);
+    let plrList;
+  if (sortBy == "total levels")
+      playerList.sort((a, b) => b.totalLvl - a.totalLvl);
+  else if (sortBy == "reckoning" || sortBy == "guardians" || sortBy == "best combat" || sortBy == "worst combat")
+    playerList.sort((a, b) => {
+      let aRaid = calcSkillGroup(a, sortBy);
+      let bRaid = calcSkillGroup(b, sortBy);
+
+      return bRaid - aRaid;
+    });
+  else if (sortBy == "name")
+    playerList.sort((a, b) => b.name.toUpperCase() < a.name.toUpperCase() ? 1 : b.name.toUpperCase() > a.name.toUpperCase() ? -1 : 0);
+  else if (sortBy == "average" || sortBy == "total xp")
+    playerList.sort((a, b) => b.totalXP - a.totalXP);
+  else
+  {
+    playerList.sort((a, b) => b.skillExperiences[sortBy] - a.skillExperiences[sortBy]);
+    console.log("default sort");
+  }
+  
+  displayTable();
+}
+
+function displayTable ()
+{
+  let header = mainContainer[0].children[0];
+  if (header.tagName == "TBODY")
+    header = header.children[0];
+  
+  
+  mainContainer.empty();
+  mainContainer.append(header);
+  
+  for (let player of playerList)
+  {
+    if (player.totalLvl <= 0)
+      continue;
+
+    let newRow = document.createElement("TR");
+    let rowContent = "<td><b><a href='#'>" + player.name + "</a></b></td>";
+    rowContent += "<td>"+player.totalLvl+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.attack)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.strength)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.defence)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.archery)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.magic)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.health)+"</td>";
+    
+    let combat = calcSkillGroup(player, "worst combat");
+    
+    rowContent += "<td>"+combat+"</td>";
+    
+    combat = calcSkillGroup(player, "best combat");
+    
+    rowContent += "<td>"+combat+"</td>";
+
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.crafting)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.fishing)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.cooking)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.mining)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.smithing)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.plundering)+"</td>";
+
+        let raid = calcSkillGroup(player, "reckoning");
+    
+    rowContent += "<td>"+raid+"</td>";
+    
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.woodcutting)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.carpentry)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.foraging)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.farming)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.brewing)+"</td>";
+    
+            raid = calcSkillGroup(player, "guardians");
+    
+    rowContent += "<td>"+raid+"</td>";
+    
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.agility)+"</td>";
+    rowContent += "<td>"+xpToLvl(player.skillExperiences.enchanting)+"</td>";
+
+
+
+    rowContent += "<td>"+parseInt(player.totalXP).toLocaleString()+"</td>";
+    rowContent += "<td>"+xpToLvl(player.totalXP/19)+"</td>";
+    newRow.innerHTML = rowContent;
+    mainContainer.append(newRow);
+  }
+  
+  $("td").each(function() {
+    let val = $(this).html()
+    if (val > 120 || val.length > 3)
+      $(this).css('background-color', 'unset');
+    else if (val >= 110)
+      $(this).css('background-color', '#FDF');
+    else if (val >= 100)
+      $(this).css('background-color', '#DDF');
+    else if (val >= 90)
+      $(this).css('background-color', '#DFF');
+    else if (val >= 80)
+      $(this).css('background-color', '#DFD');
+    else if (val >= 60)
+      $(this).css('background-color', '#FFD');
+    else
+      $(this).css('background-color', '#FDD');
+  });
+
+  $("th").click(function(event){          
+    let sk = event.target.innerHTML.toLowerCase();
+    sortTable(sk);
+    event.stopPropagation();
+    event.preventDefault();
+    return true;
+  });
+}
+
+var input = $('#search-input');
+var mainContainer = $('#main-container');
+mainContainer.append("<tr class='header'><th>Name</th><th class='special'>Total Levels</th><th>Attack</th><th>Strength</th><th>Defence</th><th>Archery</th><th>Magic</th><th>Health</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th>Crafting</th><th>Fishing</th><th>Cooking</th><th>Mining</th><th>Smithing</th><th>Plundering</th><th class='special'>Reckoning</th><th>Woodcutting</th><th>Carpentry</th><th>Foraging</th><th>Farming</th><th>Brewing</th><th class='special'>Guardians</th><th>Agility</th><th>Enchanting</th><th class='special'>Total XP</th><th class='special'>Average</th></tr><tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>");
+
+function skIcons (sk)
+{
+  switch (sk)
+  {
+    case "Woodcutting": return "d/df/"; break;
+    case "Fishing": return "1/19/"; break;
+    case "Mining": return "4/41/"; break;
+    case "Foraging": return "b/ba/"; break;
+      case "Cooking": return "f/f4/"; break;
+      case "Carpentry": return "b/b2/"; break;
+      case "Smithing": return "8/84/"; break;
+      case "Crafting": return "f/ff/"; break;
+      case "Health": return "9/94/"; break;
+case "Farming": return "1/18/"; break;
+case "Brewing": return "e/ed/"; break;
+case "Defence": return "4/41/"; break;
+case "Strength": return "8/8b/"; break;
+case "Archery": return "9/98/"; break;
+case "Magic": return "f/f7/"; break;
+case "Attack": return "5/5b/"; break;
+case "Agility": return "1/14/"; break;
+case "Enchanting": return "d/d3/"; break;
+case "Plundering": return "d/d3/"; break;
+  }
+}
+
+for (let h of mainContainer[0].children[0].children)
+  {
+    if (h.classList.contains("special") || h.innerHTML == "Name")
+      continue;
+    
+    let sk = h.innerHTML;
+    console.log("Adding icon for " + sk);
+    h.innerHTML = `<img style='rotate: 180deg; float:left' src='https://wiki.idleclans.com/images/thumb/${skIcons(sk)}${(sk == "Attack" ? "Rigour" : sk)}.png/24px-${(sk == "Attack" ? "Rigour" : sk)}.png'><span style='float:right'>${sk}</span>`;
+  }
+
+function fetchPlayerData(player) {
+  return new Promise((resolve, reject) => {
+    var plrName = player.name;
+    var apiUrl = `https://query.idleclans.com/api/Player/profile/${plrName}`;
+
+    $.ajax({
+      url: apiUrl,
+      method: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        player.skillExperiences = data.skillExperiences;
+        
+        let totalXP = 0;
+        let totalLvl = 0;
+        for (let sk of Object.keys(player.skillExperiences)) {
+          totalXP += player.skillExperiences[sk];
+          totalLvl += xpToLvl(player.skillExperiences[sk]);
+        }
+        
+        player.totalXP = totalXP;
+        player.totalLvl = totalLvl;
+        resolve(player);
+      },
+      error: function(error) {
+        reject(error);
+      }
+    });
+  });
+}
+let progress = 0;
+// Function to process the queue
+async function processQueue(playerQueue) {
+  progress = 0;
+  for (const player of playerQueue) {
+    try {
+      await fetchPlayerData(player);
+      progress++;
+      document.getElementById('progress').innerHTML = (progress / playerQueue.length * 100).toFixed(2) + "%";
+    } catch (error) {
+      console.error('Error fetching data for player:', player.name, error);
+      progress++;
+      document.getElementById('progress').innerHTML = (progress / playerQueue.length * 100).toFixed(2) + "%";
+    }
+  }
+
+  sortTable("average");
+}
+
+function pullData() {
+  const playerQueue = [...playerList];
+  processQueue(playerQueue);
+}   
 </script>
