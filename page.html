@@ -129,7 +129,7 @@ td {
 </html>
 
 <script>
-
+var oldData = [];
 var playerList = [
   {name: "MomOfChoas", skillExperiences: {}, totalXP: 0, totalLvl: 0},
   {name: "C410na3r", skillExperiences: {}, totalXP: 0, totalLvl: 0},
@@ -332,6 +332,19 @@ function sortTable (sortBy)
   displayTable();
 }
 
+function highlightCell(event)
+{
+    event.target.borderColor = "lightgreen";
+    setTimeout(function() {
+        event.target.borderColor = "black";
+    }, 3000);
+}
+
+function displayCell (curr, old, showLvl=false)
+{
+    return "<td" + (curr != old ? " onload=highlightCell(event)" : "") + ">"+(showLvl ? xpToLvl(curr) : curr)+"</td>";
+}
+
 function displayTable ()
 {
   let header = mainContainer[0].children[0];
@@ -342,18 +355,20 @@ function displayTable ()
   mainContainer.empty();
   mainContainer.append(header);
   
-  for (let player of playerList)
+  for (let p = 0; p < playerList.length; p++)
   {
+      player = playerList[p];
+      
     if (player.totalLvl <= 0)
       continue;
 
     let newRow = document.createElement("TR");
     let rowContent = "<td><b><a href='#'>" + player.name + "</a></b></td>";
-    rowContent += "<td>"+player.totalLvl+"</td>";
+    rowContent += displayCell(player.totalLvl, player.totalLvl);
     rowContent += "<td>"+xpToLvl(player.skillExperiences.attack)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.strength)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.defence)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.archery)+"</td>";
+    rowContent += displayCell(player.skillExperiences.archery, player.skillExperiencesLast.archery)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.magic)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.health)+"</td>";
     
@@ -378,8 +393,8 @@ function displayTable ()
     
     rowContent += "<td>"+xpToLvl(player.skillExperiences.woodcutting)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.carpentry)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.foraging)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.farming)+"</td>";
+    rowContent += displayCell(player.skillExperiences.foraging, player.skillExperiencesLast.foraging)+"</td>";
+    rowContent += displayCell(player.skillExperiences.farming, player.skillExperiencesLast.farming)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.brewing)+"</td>";
     
             raid = calcSkillGroup(player, "guardians");
@@ -474,6 +489,7 @@ function fetchPlayerData(player) {
       method: 'GET',
       dataType: 'json',
       success: function(data) {
+        player.skillExperiencesLast = JSON.parse(JSON.stringify(player.skillExperiences));
         player.skillExperiences = data.skillExperiences;
         
         let totalXP = 0;
