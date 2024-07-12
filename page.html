@@ -334,7 +334,7 @@ function sortTable (sortBy)
 
 function highlightCell(event)
 {
-    event.target.borderColor = "lightgreen";
+    event.target.borderColor = "lightgreen !important";
     setTimeout(function() {
         event.target.borderColor = "black";
     }, 3000);
