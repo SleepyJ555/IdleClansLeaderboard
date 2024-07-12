@@ -368,7 +368,7 @@ function displayTable ()
     rowContent += "<td>"+xpToLvl(player.skillExperiences.attack)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.strength)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.defence)+"</td>";
-    rowContent += displayCell(player.skillExperiences.archery, player.skillExperiencesLast.archery)+"</td>";
+    rowContent += displayCell(player.skillExperiences.archery, player.skillExperiencesLast.archery, true)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.magic)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.health)+"</td>";
     
@@ -393,8 +393,8 @@ function displayTable ()
     
     rowContent += "<td>"+xpToLvl(player.skillExperiences.woodcutting)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.carpentry)+"</td>";
-    rowContent += displayCell(player.skillExperiences.foraging, player.skillExperiencesLast.foraging)+"</td>";
-    rowContent += displayCell(player.skillExperiences.farming, player.skillExperiencesLast.farming)+"</td>";
+    rowContent += displayCell(player.skillExperiences.foraging, player.skillExperiencesLast.foraging, true)+"</td>";
+    rowContent += displayCell(player.skillExperiences.farming, player.skillExperiencesLast.farming, true)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.brewing)+"</td>";
     
             raid = calcSkillGroup(player, "guardians");
