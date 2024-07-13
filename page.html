@@ -120,6 +120,16 @@ td {
   margin-bottom: 10px;
   margin-left: 10px;
 }
+
+.xpBar {
+    background-color: #0FE;
+    height: 80px;
+}
+
+.xpFill {
+    background-color: #0A8;
+}
+    
 </style>
 </head>
 <body>
@@ -368,35 +378,37 @@ function displayCell (curr, old, showLvl=false)
     return "<td" + (curr != old ? " onload=highlightCell(event)" : "") + ">"+(showLvl ? xpToLvl(curr) : curr)+"</td>";
 }
 
-function showPlayerDetails(player)
+function showPlayerDetails(plrName)
 {
+    let player = playerList.find((a) => a.name == plrName);
     let plrDetails = document.getElementById('playerDetails');
-    plrDetails.innerHTML += "<td></td><td></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "attack") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "strength") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "defence") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "archery") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "magic") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "health") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td></td>";
-    plrDetails.innerHTML += "<td></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "crafting") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "fishing") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "cooking") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "mining") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "smithing") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "plundering") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><td></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "woodcutting") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "carpentry") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "foraging") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "farming") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "brewing") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "agility") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "enchanting") +"' class='xpFill'></div></div></td>";
-    plrDetails.innerHTML += "<td></td>";
-    plrDetails.innerHTML += "<td></td>";
+    let innerHTML = "<td></td><td></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "attack") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "strength") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "defence") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "archery") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "magic") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "health") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td></td>";
+    innerHTML += "<td></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "crafting") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "fishing") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "cooking") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "mining") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "smithing") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "plundering") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><td></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "woodcutting") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "carpentry") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "foraging") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "farming") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "brewing") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "agility") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "enchanting") +"' class='xpFill'></div></div></td>";
+    innerHTML += "<td></td>";
+    innerHTML += "<td></td>";
+    plrDetails.innerHTML = innerHTML;
 }
 
 function displayTable ()
