@@ -417,7 +417,7 @@ function displayTable ()
       continue;
 
     let newRow = document.createElement("TR");
-    let rowContent = `<td><b><a href='#' onclick="showPlayerDetails(\"${player.name}\")">${player.name}</a></b></td>`;
+    let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
     rowContent += displayCell(player.totalLvl, player.totalLvl);
     rowContent += "<td>"+xpToLvl(player.skillExperiences.attack)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.strength)+"</td>";
