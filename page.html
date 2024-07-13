@@ -370,7 +370,7 @@ function displayCell (curr, old, showLvl=false)
 
 function showPlayerDetails(player)
 {
-    let plrDetailsRow = document.getElementById('playerDetails');
+    let plrDetails = document.getElementById('playerDetails');
     plrDetails.innerHTML += "<td></td><td></td>";
     plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "attack") +"' class='xpFill'></div></div></td>";
     plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "strength") +"' class='xpFill'></div></div></td>";
