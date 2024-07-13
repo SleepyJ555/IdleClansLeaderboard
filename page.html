@@ -97,6 +97,10 @@ td {
   clear: left;
 }
 
+#playerDetails {
+    background-color: #111;
+}
+
 .market-entry {
     border: 1px solid #ccc;
     padding: 10px;
@@ -125,6 +129,7 @@ td {
 -->
 <button style='float: left'  onclick='pullData()'>Pull Data</button> <span style='float: left' id='progress'>0%</span>
 <table style='clear:left' id="main-container"></table>
+
 </body>
 </html>
 
@@ -273,7 +278,7 @@ var xpTable = [
   68813880,
   78644309,
   88474739
-]
+];
 
 function xpToLvl (xp)
 {
@@ -284,6 +289,23 @@ function xpToLvl (xp)
   return i;
 }
 
+
+    
+function xpProgress (player, sk)
+{
+    let currXP = player.skillExperiences[sk];
+    let level = 0;
+
+    while (currXP >= xpTable[level])
+        level++;
+
+    let xpStart = xpTable[level-1];
+    let xpEnd = xpTable[level];
+
+    return (currXP - xpStart) / (xpEnd - xpStart) * 100 + "%";
+    return (currXP - xpStart) / (xpEnd - xpStart) * 100 + "%"
+}
+    
 function calcSkillGroup(player, type)
 {      
   if (type == "worst combat")
@@ -334,6 +356,7 @@ function sortTable (sortBy)
 
 function highlightCell(event)
 {
+    console.log("highlighting cell");
     event.target.borderColor = "lightgreen !important";
     setTimeout(function() {
         event.target.borderColor = "black";
@@ -343,6 +366,37 @@ function highlightCell(event)
 function displayCell (curr, old, showLvl=false)
 {
     return "<td" + (curr != old ? " onload=highlightCell(event)" : "") + ">"+(showLvl ? xpToLvl(curr) : curr)+"</td>";
+}
+
+function showPlayerDetails(player)
+{
+    let plrDetailsRow = document.getElementById('playerDetails');
+    plrDetails.innerHTML += "<td></td><td></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "attack") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "strength") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "defence") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "archery") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "magic") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "health") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td></td>";
+    plrDetails.innerHTML += "<td></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "crafting") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "fishing") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "cooking") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "mining") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "smithing") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "plundering") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><td></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "woodcutting") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "carpentry") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "foraging") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "farming") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "brewing") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "agility") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "enchanting") +"' class='xpFill'></div></div></td>";
+    plrDetails.innerHTML += "<td></td>";
+    plrDetails.innerHTML += "<td></td>";
 }
 
 function displayTable ()
@@ -363,7 +417,7 @@ function displayTable ()
       continue;
 
     let newRow = document.createElement("TR");
-    let rowContent = "<td><b><a href='#'>" + player.name + "</a></b></td>";
+    let rowContent = `<td><b><a href='#' onclick="showPlayerDetails(\"${player.name}\")">${player.name}</a></b></td>`;
     rowContent += displayCell(player.totalLvl, player.totalLvl);
     rowContent += "<td>"+xpToLvl(player.skillExperiences.attack)+"</td>";
     rowContent += "<td>"+xpToLvl(player.skillExperiences.strength)+"</td>";
@@ -437,6 +491,10 @@ function displayTable ()
     event.preventDefault();
     return true;
   });
+
+    newRow = document.createElement("TR");
+    newRow.innerHTML = "<tr id='playerDetails'></tr>";
+    mainContainer.append(newRow);
 }
 
 var input = $('#search-input');
