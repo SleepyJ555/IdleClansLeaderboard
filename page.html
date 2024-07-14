@@ -414,7 +414,8 @@ function displayTable ()
             mainHeaderHTML += "<th>" + skill + "</th>";
         }
         
-        mainHeaderHTML += "<th class='special'>Total Levels</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th class='special'>Reckoning</th><th class='special'>Guardians</th><th class='special'>Total XP</th><th class='special'>Average</th></tr><tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
+        mainHeaderHTML += "<th class='special'>Total Levels</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th class='special'>Reckoning</th><th class='special'>Guardians</th><th class='special'>Total XP</th><th class='special'>Average</th></tr>";
+//        mainHeaderHTML += "<tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
         mainContainer.append(mainHeaderHTML);
         
         for (let h of mainContainer[0].children[0].children)
