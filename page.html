@@ -479,7 +479,7 @@ var input = $('#search-input');
 var mainContainer = $('#main-container');
 var mainHeaderHTML = "<tr class='header'><th>Name</th>";
 
-for (let [sk, xp] of Object.entries(player.skillExperiences))
+for (let [sk, xp] of Object.entries(playerList[0].skillExperiences))
     mainHeaderHTML += "<th>" + sk + "</th>";
 
 mainHeaderHTML += "<th class='special'>Total Levels</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th class='special'>Reckoning</th><th class='special'>Guardians</th><th class='special'>Total XP</th><th class='special'>Average</th></tr><tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
