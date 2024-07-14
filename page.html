@@ -291,6 +291,7 @@ var xpTable = [
   88474739
 ];
 
+// returns what level corresponds to given xp
 function xpToLvl (xp)
 {
   let i = 0;
@@ -301,7 +302,7 @@ function xpToLvl (xp)
 }
 
 
-    
+// returns % to next level for a skill
 function xpProgress (player, sk)
 {
     let currXP = player.skillExperiences[sk];
@@ -365,6 +366,25 @@ function sortTable (sortBy)
   displayTable();
 }
 
+function showPlayerDetails(plrName)
+{
+    let player = playerList.find((a) => a.name == plrName);
+    let plrDetails = document.getElementById('playerDetails');
+    let innerHTML = "<td></td>";
+
+    for (let [sk, xp] of Object.entries(player.skillExperiences))
+    {
+        innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, sk) +"' class='xpFill'></div></div></td>";
+    }
+    innerHTML += "<td></td>";
+    innerHTML += "<td></td>";
+    innerHTML += "<td></td>";
+    innerHTML += "<td></td>";
+    innerHTML += "<td></td>";
+    innerHTML += "<td></td>";
+    plrDetails.innerHTML = innerHTML;
+}
+ 
 function highlightCell(event)
 {
     console.log("highlighting cell");
@@ -378,106 +398,51 @@ function displayCell (curr, old, showLvl=false)
 {
     return "<td" + (curr != old ? " onload=highlightCell(event)" : "") + ">"+(showLvl ? xpToLvl(curr) : curr)+"</td>";
 }
-
-function showPlayerDetails(plrName)
-{
-    let player = playerList.find((a) => a.name == plrName);
-    let plrDetails = document.getElementById('playerDetails');
-    let innerHTML = "<td></td><td></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "attack") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "strength") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "defence") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "archery") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "magic") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "health") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td></td>";
-    innerHTML += "<td></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "crafting") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "fishing") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "cooking") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "mining") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "smithing") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "plundering") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "woodcutting") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "carpentry") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "foraging") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "farming") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "brewing") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "agility") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td><div class='xpBar'><div style='height:"+ xpProgress(player, "enchanting") +"' class='xpFill'></div></div></td>";
-    innerHTML += "<td></td>";
-    innerHTML += "<td></td>";
-    plrDetails.innerHTML = innerHTML;
-}
-
+    
 function displayTable ()
 {
-  let header = mainContainer[0].children[0];
-  if (header.tagName == "TBODY")
-    header = header.children[0];
+    let header = mainContainer[0].children[0];
+    
+    if (header.tagName == "TBODY")
+        header = header.children[0];
+    
+    mainContainer.empty();
+    mainContainer.append(header);
   
-  
-  mainContainer.empty();
-  mainContainer.append(header);
-  
-  for (let p = 0; p < playerList.length; p++)
-  {
-      player = playerList[p];
+    for (let p = 0; p < playerList.length; p++)
+    {
+        player = playerList[p];
       
-    if (player.totalLvl <= 0)
-      continue;
+        if (player.totalLvl <= 0)
+            continue;
 
-    let newRow = document.createElement("TR");
-    let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
-    rowContent += displayCell(player.totalLvl, player.totalLvl);
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.attack)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.strength)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.defence)+"</td>";
-    rowContent += displayCell(player.skillExperiences.archery, player.skillExperiencesLast.archery, true)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.magic)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.health)+"</td>";
-    
-    let combat = calcSkillGroup(player, "worst combat");
-    
-    rowContent += "<td>"+combat+"</td>";
-    
-    combat = calcSkillGroup(player, "best combat");
-    
-    rowContent += "<td>"+combat+"</td>";
+        let newRow = document.createElement("TR");
+        let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
 
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.crafting)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.fishing)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.cooking)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.mining)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.smithing)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.plundering)+"</td>";
-
+        for (let [sk, xp] of Object.entries(player.skillExperiences))
+        {
+            rowContent += displayCell(xp, player.skillExperiencesLast[sk], true);
+        }
+          
+        rowContent += displayCell(player.totalLvl, player.totalLvl);
+    
+        let combat = calcSkillGroup(player, "worst combat");
+        rowContent += "<td>"+combat+"</td>";
+       
+        combat = calcSkillGroup(player, "best combat");
+        rowContent += "<td>"+combat+"</td>";
+    
         let raid = calcSkillGroup(player, "reckoning");
+        rowContent += "<td>"+raid+"</td>";
     
-    rowContent += "<td>"+raid+"</td>";
+        raid = calcSkillGroup(player, "guardians");
+        rowContent += "<td>"+raid+"</td>";
     
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.woodcutting)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.carpentry)+"</td>";
-    rowContent += displayCell(player.skillExperiences.foraging, player.skillExperiencesLast.foraging, true)+"</td>";
-    rowContent += displayCell(player.skillExperiences.farming, player.skillExperiencesLast.farming, true)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.brewing)+"</td>";
-    
-            raid = calcSkillGroup(player, "guardians");
-    
-    rowContent += "<td>"+raid+"</td>";
-    
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.agility)+"</td>";
-    rowContent += "<td>"+xpToLvl(player.skillExperiences.enchanting)+"</td>";
-
-
-
-    rowContent += "<td>"+parseInt(player.totalXP).toLocaleString()+"</td>";
-    rowContent += "<td>"+xpToLvl(player.totalXP/19)+"</td>";
-    newRow.innerHTML = rowContent;
-    mainContainer.append(newRow);
-  }
+        rowContent += "<td>"+parseInt(player.totalXP).toLocaleString()+"</td>";
+        rowContent += "<td>"+xpToLvl(player.totalXP/19)+"</td>";
+        newRow.innerHTML = rowContent;
+        mainContainer.append(newRow);
+    }
   
   $("td").each(function() {
     let val = $(this).html()
@@ -512,43 +477,22 @@ function displayTable ()
 
 var input = $('#search-input');
 var mainContainer = $('#main-container');
-mainContainer.append("<tr class='header'><th>Name</th><th class='special'>Total Levels</th><th>Attack</th><th>Strength</th><th>Defence</th><th>Archery</th><th>Magic</th><th>Health</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th>Crafting</th><th>Fishing</th><th>Cooking</th><th>Mining</th><th>Smithing</th><th>Plundering</th><th class='special'>Reckoning</th><th>Woodcutting</th><th>Carpentry</th><th>Foraging</th><th>Farming</th><th>Brewing</th><th class='special'>Guardians</th><th>Agility</th><th>Enchanting</th><th class='special'>Total XP</th><th class='special'>Average</th></tr><tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>");
+var mainHeaderHTML = "<tr class='header'><th>Name</th>
 
-function skIcons (sk)
-{
-  switch (sk)
-  {
-    case "Woodcutting": return "d/df/"; break;
-    case "Fishing": return "1/19/"; break;
-    case "Mining": return "4/41/"; break;
-    case "Foraging": return "b/ba/"; break;
-      case "Cooking": return "f/f4/"; break;
-      case "Carpentry": return "b/b2/"; break;
-      case "Smithing": return "8/84/"; break;
-      case "Crafting": return "f/ff/"; break;
-      case "Health": return "9/94/"; break;
-case "Farming": return "1/18/"; break;
-case "Brewing": return "e/ed/"; break;
-case "Defence": return "4/41/"; break;
-case "Strength": return "8/8b/"; break;
-case "Archery": return "9/98/"; break;
-case "Magic": return "f/f7/"; break;
-case "Attack": return "5/5b/"; break;
-case "Agility": return "1/14/"; break;
-case "Enchanting": return "d/d3/"; break;
-case "Plundering": return "d/d3/"; break;
-  }
-}
+for (let [sk, xp] of Object.entries(player.skillExperiences))
+    mainHeaderHTML += "<th>" + sk + "</th>";
+
+mainHeaderHTML += "<th class='special'>Total Levels</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th class='special'>Reckoning</th><th class='special'>Guardians</th><th class='special'>Total XP</th><th class='special'>Average</th></tr><tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
+mainContainer.append(mainHeaderHTML);
 
 for (let h of mainContainer[0].children[0].children)
-  {
+{
     if (h.classList.contains("special") || h.innerHTML == "Name")
-      continue;
+        continue;
     
     let sk = h.innerHTML;
-    console.log("Adding icon for " + sk);
     h.innerHTML = `<img style='rotate: 180deg; float:left' src='images/24px-${sk}.png'><span class='headerSpan' style='float:right'>${sk}</span>`;
-  }
+}
 
 function fetchPlayerData(player) {
   return new Promise((resolve, reject) => {
@@ -590,7 +534,8 @@ async function processQueue(playerQueue) {
       progress++;
       document.getElementById('progress').innerHTML = (progress / playerQueue.length * 100).toFixed(2) + "%";
     } catch (error) {
-      console.error('Error fetching data for player:', player.name, error);
+        console.error("Could not load " + player.name);
+//      console.error('Error fetching data for player:', player.name, error);
       progress++;
       document.getElementById('progress').innerHTML = (progress / playerQueue.length * 100).toFixed(2) + "%";
     }
