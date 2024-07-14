@@ -145,7 +145,9 @@ td {
 </html>
 
 <script>
-var oldData = [];
+
+var input = $('#search-input');
+var mainContainer = $('#main-container');
 var playerList = [
   {name: "MomOfChoas", skillExperiences: {}, totalXP: 0, totalLvl: 0},
   {name: "C410na3r", skillExperiences: {}, totalXP: 0, totalLvl: 0},
@@ -401,13 +403,35 @@ function displayCell (curr, old, showLvl=false)
     
 function displayTable ()
 {
-    let header = mainContainer[0].children[0];
-    
-    if (header.tagName == "TBODY")
-        header = header.children[0];
-    
-    mainContainer.empty();
-    mainContainer.append(header);
+    if (mainContainer[0].childElementCount <= 0)
+    {
+        var mainHeaderHTML = "<tr class='header'><th>Name</th>";
+        
+        for (let [sk, xp] of Object.entries(playerList[0].skillExperiences))
+            mainHeaderHTML += "<th>" + sk + "</th>";
+        
+        mainHeaderHTML += "<th class='special'>Total Levels</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th class='special'>Reckoning</th><th class='special'>Guardians</th><th class='special'>Total XP</th><th class='special'>Average</th></tr><tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
+        mainContainer.append(mainHeaderHTML);
+        
+        for (let h of mainContainer[0].children[0].children)
+        {
+            if (h.classList.contains("special") || h.innerHTML == "Name")
+                continue;
+            
+            let sk = h.innerHTML;
+            h.innerHTML = `<img style='rotate: 180deg; float:left' src='images/24px-${sk}.png'><span class='headerSpan' style='float:right'>${sk}</span>`;
+        }
+    }
+    else
+    {
+        let header = mainContainer[0].children[0];
+        
+        if (header.tagName == "TBODY")
+            header = header.children[0];
+        
+        mainContainer.empty();
+        mainContainer.append(header);
+    }
   
     for (let p = 0; p < playerList.length; p++)
     {
@@ -475,24 +499,6 @@ function displayTable ()
     mainContainer.append(newRow);
 }
 
-var input = $('#search-input');
-var mainContainer = $('#main-container');
-var mainHeaderHTML = "<tr class='header'><th>Name</th>";
-
-for (let [sk, xp] of Object.entries(playerList[0].skillExperiences))
-    mainHeaderHTML += "<th>" + sk + "</th>";
-
-mainHeaderHTML += "<th class='special'>Total Levels</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th class='special'>Reckoning</th><th class='special'>Guardians</th><th class='special'>Total XP</th><th class='special'>Average</th></tr><tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
-mainContainer.append(mainHeaderHTML);
-
-for (let h of mainContainer[0].children[0].children)
-{
-    if (h.classList.contains("special") || h.innerHTML == "Name")
-        continue;
-    
-    let sk = h.innerHTML;
-    h.innerHTML = `<img style='rotate: 180deg; float:left' src='images/24px-${sk}.png'><span class='headerSpan' style='float:right'>${sk}</span>`;
-}
 
 function fetchPlayerData(player) {
   return new Promise((resolve, reject) => {
@@ -534,7 +540,7 @@ async function processQueue(playerQueue) {
       progress++;
       document.getElementById('progress').innerHTML = (progress / playerQueue.length * 100).toFixed(2) + "%";
     } catch (error) {
-        console.error("Could not load " + player.name);
+//        console.error("Could not load " + player.name);
 //      console.error('Error fetching data for player:', player.name, error);
       progress++;
       document.getElementById('progress').innerHTML = (progress / playerQueue.length * 100).toFixed(2) + "%";
