@@ -130,6 +130,10 @@ td {
 .xpFill {
     background-color: #0FC;
 }
+
+.highlightCell {
+    border-color: lightgreen !important;
+}
     
 </style>
 </head>
@@ -386,19 +390,10 @@ function showPlayerDetails(plrName)
     innerHTML += "<td></td>";
     plrDetails.innerHTML = innerHTML;
 }
- 
-function highlightCell(event)
-{
-    console.log("highlighting cell");
-    event.target.borderColor = "lightgreen !important";
-    setTimeout(function() {
-        event.target.borderColor = "black";
-    }, 3000);
-}
 
 function displayCell (curr, old, showLvl=false)
 {
-    return "<td" + (curr != old ? " onload=highlightCell(event)" : "") + ">"+(showLvl ? xpToLvl(curr) : curr)+"</td>";
+    return "<td " + (curr != old ? " class='highlightCell'" : "") + ">"+(showLvl ? xpToLvl(curr) : curr)+"</td>";
 }
     
 function displayTable ()
@@ -502,6 +497,10 @@ function displayTable ()
     newRow = document.createElement("TR");
     newRow.id = "playerDetails";
     mainContainer.append(newRow);
+
+    setTimeout(function() {
+        $(".highlightCell").removeClass("highlightedCell");
+    }, 3000);   
 }
 
 
