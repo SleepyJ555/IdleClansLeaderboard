@@ -465,7 +465,7 @@ function displayUpgrades ()
     }
   
   $("th").click(function(event){          
-    let sk = event.target.innerHTML.toLowerCase();
+    let sk = event.target.innerHTML[0].toLowerCase() + event.target.innerHTML.slice(1);
     sortUpgrades(sk);
     event.stopPropagation();
     event.preventDefault();
