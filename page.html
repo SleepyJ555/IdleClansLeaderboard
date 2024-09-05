@@ -96,6 +96,11 @@ td {
     margin-top: 20px;
   clear: left;
 }
+    
+#upgrades-container {
+    margin-top: 20px;
+  clear: left;
+}
 
 #playerDetails {
     background-color: #111;
@@ -132,7 +137,7 @@ td {
 }
 
 .highlightCell {
-    border-color: lightgreen !important;
+    /* border-color: lightgreen !important; */
 }
     
 </style>
@@ -144,6 +149,7 @@ td {
 -->
 <button style='float: left'  onclick='pullData()'>Pull Data</button> <span style='float: left' id='progress'>0%</span>
 <table style='clear:left' id="main-container"></table>
+<table style='clear:left' id="upgrades-container"></table>
 
 </body>
 </html>
@@ -152,26 +158,27 @@ td {
 
 var input = $('#search-input');
 var mainContainer = $('#main-container');
+var upgradesContainer = $('#upgrades-container');
 var playerList = [
-  {name: "MomOfChoas", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "C410na3r", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "Chenson", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "NetflixNKill", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "PsiMissing", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "PsiFound", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "PsiWolf", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "ZekeRose", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "ZekeMk2", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "ZekeMk3", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "CaptJettSparrow", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "Coal4UrSoul", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "GrimReaper411", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "TrashReaper411", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "ElediahReaper", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "Radyth", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "RadythV2", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "RadythV3", skillExperiences: {}, totalXP: 0, totalLvl: 0},
-  {name: "BBashiri", skillExperiences: {}, totalXP: 0, totalLvl: 0},
+  {name: "MomOfChoas", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "C410na3r", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "Chenson", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "NetflixNKill", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "PsiMissing", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "PsiFound", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "PsiWolf", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "ZekeRose", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "ZekeMk2", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "ZekeMk3", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "CaptJettSparrow", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "Coal4UrSoul", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "GrimReaper411", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "TrashReaper411", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "ElediahReaper", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "Radyth", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "RadythV2", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "RadythV3", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "BBashiri", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
 ]
 
 var xpTable = [
@@ -372,6 +379,18 @@ function sortTable (sortBy)
   displayTable();
 }
 
+function sortUpgrades (sortBy)
+{
+  console.log("Sorting by " + sortBy);
+    let plrList;
+  else if (sortBy == "name")
+    playerList.sort((a, b) => b.name.toUpperCase() < a.name.toUpperCase() ? 1 : b.name.toUpperCase() > a.name.toUpperCase() ? -1 : 0);
+  else
+    playerList.sort((a, b) => b.upgrades[sortBy] - a.upgrades[sortBy]);
+  
+  displayUpgrades();
+}
+
 function showPlayerDetails(plrName)
 {
     let player = playerList.find((a) => a.name == plrName);
@@ -394,6 +413,64 @@ function showPlayerDetails(plrName)
 function displayCell (curr, old, showLvl=false)
 {
     return "<td " + (curr != old ? " class='highlightCell'" : "") + ">"+(showLvl ? xpToLvl(curr) : curr)+"</td>";
+}
+
+function displayUpgrades ()
+{
+    let upgList = Object.entries(player.upgrades).sort((a, b) => a[0].localeCompare(b[0]));
+    
+    if (upgradesContainer[0].childElementCount <= 0)
+    {
+        var mainHeaderHTML = "<tr class='header'><th>Name</th>";
+        
+        for (let [upgrade, lvl] of upgradeList)
+        {
+            let label = upgrade;
+            label = label.charAt(0).toUpperCase() + label.slice(1);
+            mainHeaderHTML += "<th>" + label + "</th>";
+        }
+        
+        mainHeaderHTML += "</tr>";
+//        mainHeaderHTML += "<tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
+        upgradesContainer.append(mainHeaderHTML);
+    }
+    else
+    {
+        let header = upgradesContainer[0].children[0];
+        
+        if (header.tagName == "TBODY")
+            header = header.children[0];
+        
+        upgradesContainer.empty();
+        upgradesContainer.append(header);
+    }
+  
+    for (let p = 0; p < playerList.length; p++)
+    {
+        player = playerList[p];
+      
+        if (player.totalLvl <= 0)
+            continue;
+
+        let newRow = document.createElement("TR");
+        let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
+
+        
+
+        for (let [upgrade, lvl] of upgradeList)
+            rowContent += "<td>"+lvl+"</td>
+          
+        newRow.innerHTML = rowContent;
+        upgradesContainer.append(newRow);
+    }
+  
+  $("th").click(function(event){          
+    let sk = event.target.innerHTML.toLowerCase();
+    sortUpgrades(sk);
+    event.stopPropagation();
+    event.preventDefault();
+    return true;
+  });
 }
     
 function displayTable ()
@@ -516,6 +593,7 @@ function fetchPlayerData(player) {
       success: function(data) {
         player.skillExperiencesLast = JSON.parse(JSON.stringify(player.skillExperiences));
         player.skillExperiences = data.skillExperiences;
+        player.upgrades = data.upgrades;
         
         let totalXP = 0;
         let totalLvl = 0;
@@ -552,6 +630,7 @@ async function processQueue(playerQueue) {
   }
 
     displayTable();
+    displayUpgrades();
 //  sortTable("average");
 }
 
