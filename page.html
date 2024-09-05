@@ -383,7 +383,7 @@ function sortUpgrades (sortBy)
 {
   console.log("Sorting by " + sortBy);
     let plrList;
-  else if (sortBy == "name")
+  if (sortBy == "name")
     playerList.sort((a, b) => b.name.toUpperCase() < a.name.toUpperCase() ? 1 : b.name.toUpperCase() > a.name.toUpperCase() ? -1 : 0);
   else
     playerList.sort((a, b) => b.upgrades[sortBy] - a.upgrades[sortBy]);
