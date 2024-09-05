@@ -417,7 +417,7 @@ function displayCell (curr, old, showLvl=false)
 
 function displayUpgrades ()
 {
-    let upgList = Object.entries(player.upgrades).sort((a, b) => a[0].localeCompare(b[0]));
+    let upgradeList = Object.entries(player.upgrades).sort((a, b) => a[0].localeCompare(b[0]));
     
     if (upgradesContainer[0].childElementCount <= 0)
     {
@@ -458,7 +458,7 @@ function displayUpgrades ()
         
 
         for (let [upgrade, lvl] of upgradeList)
-            rowContent += "<td>"+lvl+"</td>
+            rowContent += "<td>"+lvl+"</td>";
           
         newRow.innerHTML = rowContent;
         upgradesContainer.append(newRow);
