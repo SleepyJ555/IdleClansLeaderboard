@@ -513,7 +513,7 @@ function displayUpgrades ()
     }
 
 
-  $("td").each(function() {
+  $("#upgrades-container td").each(function() {
     let val = parseFloat($(this).html());
     let max = $(this)[0].dataset.maxval;
     if (max == null) max = 120;
@@ -618,26 +618,30 @@ function displayTable ()
         newRow.innerHTML = rowContent;
         mainContainer.append(newRow);
     }
+    
+  $("#main-container td").each(function() {
+    let val = parseFloat($(this).html());
+    let max = $(this)[0].dataset.maxval;
+    if (max == null) max = 120;
+    else max = parseFloat(max);
+    let perc = val / max;
 
-    /*
-  $("td").each(function() {
-    let val = $(this).html()
     if (val > 120 || val.length > 3)
       $(this).css('background-color', 'unset');
-    else if (val >= 110)
+    else if (perc >= 110/120)
       $(this).css('background-color', '#FDF');
-    else if (val >= 100)
+    else if (perc >= 100/120)
       $(this).css('background-color', '#DDF');
-    else if (val >= 90)
+    else if (perc >= 90/120)
       $(this).css('background-color', '#DFF');
-    else if (val >= 80)
+    else if (perc >= 80/120)
       $(this).css('background-color', '#DFD');
-    else if (val >= 60)
+    else if (perc >= 60/120)
       $(this).css('background-color', '#FFD');
     else
       $(this).css('background-color', '#FDD');
   });
-*/
+    
 
     
   $("#main-container th").click(function(event){          
