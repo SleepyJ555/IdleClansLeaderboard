@@ -425,6 +425,8 @@ function sortUpgrades (sortBy)
     let plrList;
   if (sortBy == "name")
     playerList.sort((a, b) => b.name.toUpperCase() < a.name.toUpperCase() ? 1 : b.name.toUpperCase() > a.name.toUpperCase() ? -1 : 0);
+  else if (sortBy == "totalGold")
+      playerList.sort((a, b) => b.totalGold - a.totalGold);
   else
     playerList.sort((a, b) => b.upgrades[sortBy] - a.upgrades[sortBy]);
   
@@ -503,6 +505,8 @@ function displayUpgrades ()
             rowContent += "<td id='"+player.name + key+"' data-maxval='"+data.tierCost.length+"'>"+player.upgrades[key]+"</td>";
             totalGold += data.tierCost.slice(player.upgrades[key]).reduce(function(acc, a) { return acc + a; }, 0);
         }
+
+        player.totalGold = totalGold;
 
         rowContent += "<td>" + totalGold + "</td>";
           
