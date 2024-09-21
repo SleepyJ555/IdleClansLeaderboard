@@ -301,6 +301,49 @@ var xpTable = [
   88474739
 ];
 
+let marketUpgrades = {
+    "Keep It Spacious": {category: "General", tierCost: [5416, 5637, 5867, 6106, 6355, 6614, 6884, 7165, 7457, 7761, 8077, 8406, 8749, 9106, 9477, 9863, 10265, 10684, 11120, 11574, 12046, 12537, 13048, 13580, 14134, 14711, 15311, 15936, 16586, 17263, 17967, 18700, 19463, 20257, 21084, 21944, 22840, 23772, 24742, 25752, 26803, 27897, 29036, 30221, 31455, 32739, 34075, 35466, 36914, 38421, 39989, 41621, 43320, 45088, 46929, 48845, 50839, 52914, 55074, 57322, 59662, 62098, 64633, 67272, 70018, 72877, 75852, 78949, 82172, 85527, 89019, 92653, 96436, 100373, 104471, 108736, 113176, 117797, 122607, 127613, 132823, 138246, 143891, 149766, 155881, 162246, 168871, 175766, 182943, 190413, 198188, 206280, 214703, 223470, 232595, 242092, 251977, 262266, 272975, 284121, 295722, 307797, 320365, 333446, 347061, 361232, 375982, 391334, 407313, 423944, 441255, 459272, 478025, 497544, 517860, 539005, 561014, 583922, 607765, 632582, 658412, 685297, 713279, 742404, 772718, 804270, 837111, 871293, 906870, 943900, 982442, 1022558, 1064312, 1107771, 1153004, 1200084, 1249087, 1300091, 1353178, 1408432, 1465942, 1525801, 1588104, 1652951, 1720446, 1790697, 1863817, 1939922, 2019135, 2101583, 2187397, 2276715, 2369680, 2466441, 2567154, 2671979, 2781084, 2894644, 3012841, 3135865, 3263912, 3397188, 3535906, 3680288, 3830566, 3986980, 4149781, 4319230, 4495598, 4679168, 4870234, 5069101, 5276089, 5491529, 5715766, 5949159, 6192082, 6444925, 6708092, 6982005, 7267103, 7563843, 7872699, 8194167, 8528762, 8877019, 9239497, 9616776, 10009461]},
+    "Valued Clan Member": {category: "General", tierCost: [50000]},
+    "Personal Housing": {category: "General", tierCost: [100000, 500000, 2500000, 10000000, 25000000]},
+    "Lazy Raider": {category: "General", tierCost: [3000000]},
+    "Extra Loadouts": {category: "General", tierCost: [1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000]},
+    "Offline Progress": {category: "General", tierCost: [200000, 1000000, 3000000, 5000000, 10000000, 25000000]},
+    "Toolbelt Upgrade": {category: "General", tierCost: [500000, 1000000, 2000000, 3000000, 4000000, 5000000]},
+
+    "Ancient Wisdom": {category: "Skilling", tierCost: [5000000]},
+    "Master Crafter": {category: "Skilling", tierCost: [5000000]},
+    "Most Efficient Fisherman": {category: "Skilling", tierCost: [1000000, 2000000, 4000000, 7500000, 10000000]},
+    "Farming Trickery": {category: "Skilling", tierCost: [250000, 1000000, 3000000, 10000000, 25000000]},
+    "The Fisherman": {category: "Skilling", tierCost: [100000, 250000, 1000000, 5000000, 20000000]},
+    "Power Forager": {category: "Skilling", tierCost: [200000, 600000, 1500000, 5000000, 10000000]},
+    "Plank Bargain": {category: "Skilling", tierCost: [500000, 1000000, 2000000]},
+    "Smelting Magic": {category: "Skilling", tierCost: [750000, 2500000, 10000000]},
+    "The Lumberjack": {category: "Skilling", tierCost: [100000, 250000, 1000000, 5000000, 20000000]},
+
+    "Auto Eating": {category: "Combat", tierCost: [100000]},
+    "Auto Looting": {category: "Combat", tierCost: [250000]},
+    "Boss Slayer": {category: "Combat", tierCost: [25000000]},
+    "Ninja": {category: "Combat", tierCost: [500000, 1500000, 5000000, 10000000]},
+    "Monster Hunter": {category: "Combat", tierCost: [50000]},
+    "Show Us The Money": {category: "Combat", tierCost: [15000000]},
+    "Kronos Who?": {category: "Combat", tierCost: [15000000]},
+    "Picky Eater": {category: "Combat", tierCost: [10000000]},
+    "Ammo Saver": {category: "Combat", tierCost: [150000, 750000, 2500000, 7500000, 20000000, 50000000]},
+    "Teamwork": {category: "Combat", tierCost: [75000]},
+
+    "Arrow Crafter": {category: "Unlockable", tierCost: [0]},
+    "Keep It Burning": {category: "Unlockable", tierCost: [0]},
+    "Better Skinner": {category: "Unlockable", tierCost: [0]},
+    "Delicate Manufacturing": {category: "Unlockable", tierCost: [0]},
+    "Getting In Sync": {category: "Unlockable", tierCost: [0]},
+    "Last Negotiation": {category: "Unlockable", tierCost: [0]},
+    "Prestigious Woodworking": {category: "Unlockable", tierCost: [0]},
+    "Responsible Drinking": {category: "Unlockable", tierCost: [0]},
+    "Better Fisherman": {category: "Unlockable", tierCost: [0]},
+    "Better Lumberjack": {category: "Unlockable", tierCost: [0]},
+    
+};
+    
 // returns what level corresponds to given xp
 function xpToLvl (xp)
 {
@@ -413,17 +456,15 @@ function displayCell (curr, old, showLvl=false)
 }
 
 function displayUpgrades ()
-{ 
-    let upgradeList = Object.entries(playerList[0].upgrades).sort((a, b) => a[0].localeCompare(b[0]));
-    
+{    
     if (upgradesContainer[0].childElementCount <= 0)
     {
         var mainHeaderHTML = "<tr class='header'><th>Name</th>";
        
-        for (let [upgrade, lvl] of upgradeList)
+        for (let [upgrade, data] of marketUpgrades)
         {
             let label = upgrade;
-            label = label.charAt(0).toUpperCase() + label.slice(1);
+//            label = label.charAt(0).toUpperCase() + label.slice(1);
             mainHeaderHTML += "<th>" + label + "</th>";
         }
         
@@ -452,10 +493,12 @@ function displayUpgrades ()
         let newRow = document.createElement("TR");
         let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
 
-        
-
-        for (let [upgrade, lvl] of upgradeList)
-            rowContent += "<td>"+player.upgrades[upgrade]+"</td>";
+        for (let [upgrade, data] of marketUpgrades)
+        {
+            let key = upgrade.replaceAll(' ', '');
+            key = key[0].toLowerCase() + key.slice(1);
+            rowContent += "<td>"+player.upgrades[key]+"</td>";
+        }
           
         newRow.innerHTML = rowContent;
         upgradesContainer.append(newRow);
