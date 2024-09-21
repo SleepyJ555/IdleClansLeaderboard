@@ -508,7 +508,7 @@ function displayUpgrades ()
 
         player.totalGold = totalGold;
 
-        rowContent += "<td>" + totalGold + "</td>";
+        rowContent += "<td>" + totalGold.toLocaleString() + "</td>";
           
         newRow.innerHTML = rowContent;
         upgradesContainer.append(newRow);
