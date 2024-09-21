@@ -461,7 +461,7 @@ function displayUpgrades ()
     {
         var mainHeaderHTML = "<tr class='header'><th>Name</th>";
        
-        for (let [upgrade, data] of marketUpgrades)
+        for (let [upgrade, data] of Object.entries(marketUpgrades))
         {
             let label = upgrade;
             let key = upgrade.replaceAll(' ', '');
@@ -495,7 +495,7 @@ function displayUpgrades ()
         let newRow = document.createElement("TR");
         let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
 
-        for (let [upgrade, data] of marketUpgrades)
+        for (let [upgrade, data] of Object.entries(marketUpgrades))
         {
             let key = upgrade.replaceAll(' ', '');
             key = key[0].toLowerCase() + key.slice(1);
