@@ -395,9 +395,9 @@ function sortTable (sortBy)
 {
   console.log("Sorting by " + sortBy);
     let plrList;
-  if (sortBy == "total levels")
+  if (sortBy == "totallevels")
       playerList.sort((a, b) => b.totalLvl - a.totalLvl);
-  else if (sortBy == "reckoning" || sortBy == "guardians" || sortBy == "best combat" || sortBy == "worst combat")
+  else if (sortBy == "reckoning" || sortBy == "guardians" || sortBy == "bestcombat" || sortBy == "worstcombat")
     playerList.sort((a, b) => {
       let aRaid = calcSkillGroup(a, sortBy);
       let bRaid = calcSkillGroup(b, sortBy);
@@ -406,7 +406,7 @@ function sortTable (sortBy)
     });
   else if (sortBy == "name")
     playerList.sort((a, b) => b.name.toUpperCase() < a.name.toUpperCase() ? 1 : b.name.toUpperCase() > a.name.toUpperCase() ? -1 : 0);
-  else if (sortBy == "average" || sortBy == "total xp")
+  else if (sortBy == "average" || sortBy == "totalxp")
     playerList.sort((a, b) => b.totalXP - a.totalXP);
   else
   {
@@ -560,7 +560,7 @@ function displayTable ()
             mainHeaderHTML += "<th id='"+skill+"'>" + skill + "</th>";
         }
         
-        mainHeaderHTML += "<th class='special'>Total Levels</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th class='special'>Reckoning</th><th class='special'>Guardians</th><th class='special'>Total XP</th><th class='special'>Average</th></tr>";
+        mainHeaderHTML += "<th id='totalLevels' class='special'>Total Levels</th><th id='worstCombat' class='special'>Worst Combat</th><th id='bestCombat' class='special'>Best Combat</th><th id='reckoning' class='special'>Reckoning</th><th id='guardians' class='special'>Guardians</th><th id='totalXp' class='special'>Total XP</th><th id='average' class='special'>Average</th></tr>";
 //        mainHeaderHTML += "<tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
         mainContainer.append(mainHeaderHTML);
         
@@ -626,7 +626,7 @@ function displayTable ()
     else max = parseFloat(max);
     let perc = val / max;
 
-    if (val > 120 || val.length > 3)
+    if (val > 120 || $(this).html().length > 3)
       $(this).css('background-color', 'unset');
     else if (perc >= 110/120)
       $(this).css('background-color', '#FBF');
