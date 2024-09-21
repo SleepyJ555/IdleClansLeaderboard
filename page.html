@@ -424,7 +424,7 @@ function sortUpgrades (sortBy)
   if (sortBy == "name")
     playerList.sort((a, b) => b.name.toUpperCase() < a.name.toUpperCase() ? 1 : b.name.toUpperCase() > a.name.toUpperCase() ? -1 : 0);
   else if (sortBy == "totalGold")
-      playerList.sort((a, b) => b.totalGold - a.totalGold);
+      playerList.sort((a, b) => a.totalGold - b.totalGold);
   else
     playerList.sort((a, b) => b.upgrades[sortBy] - a.upgrades[sortBy]);
   
