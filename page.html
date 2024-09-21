@@ -328,7 +328,7 @@ let marketUpgrades = {
     "Show Us The Money": {category: "Combat", tierCost: [15000000]},
     "Kronos Who?": {category: "Combat", tierCost: [15000000]},
     "Picky Eater": {category: "Combat", tierCost: [10000000]},
-    "Ammo-Saver": {category: "Combat", tierCost: [150000, 750000, 2500000, 7500000, 20000000, 50000000]},
+    "Ammo-saver": {category: "Combat", tierCost: [150000, 750000, 2500000, 7500000, 20000000, 50000000]},
     "Teamwork": {category: "Combat", tierCost: [75000]},
 
     "Arrow Crafter": {category: "Unlockable", tierCost: [0]},
@@ -464,8 +464,10 @@ function displayUpgrades ()
         for (let [upgrade, data] of marketUpgrades)
         {
             let label = upgrade;
+            let key = upgrade.replaceAll(' ', '');
+            key = key[0].toLowerCase() + key.slice(1);
 //            label = label.charAt(0).toUpperCase() + label.slice(1);
-            mainHeaderHTML += "<th>" + label + "</th>";
+            mainHeaderHTML += "<th id='" + key + "'>" + label + "</th>";
         }
         
         mainHeaderHTML += "</tr>";
@@ -505,7 +507,7 @@ function displayUpgrades ()
     }
   
   $("th").click(function(event){          
-    let sk = event.target.innerHTML[0].toLowerCase() + event.target.innerHTML.slice(1);
+    let sk = event.target.id;
     sortUpgrades(sk);
     event.stopPropagation();
     event.preventDefault();
@@ -523,7 +525,7 @@ function displayTable ()
         {
             let skill = sk;
             skill = skill.charAt(0).toUpperCase() + skill.slice(1);
-            mainHeaderHTML += "<th>" + skill + "</th>";
+            mainHeaderHTML += "<th id='"+skill+"'>" + skill + "</th>";
         }
         
         mainHeaderHTML += "<th class='special'>Total Levels</th><th class='special'>Worst Combat</th><th class='special'>Best Combat</th><th class='special'>Reckoning</th><th class='special'>Guardians</th><th class='special'>Total XP</th><th class='special'>Average</th></tr>";
@@ -604,7 +606,7 @@ function displayTable ()
   });
 
   $("th").click(function(event){          
-    let sk = event.target.innerHTML.toLowerCase();
+    let sk = event.target.id.toLowerCase();
     sortTable(sk);
     event.stopPropagation();
     event.preventDefault();
