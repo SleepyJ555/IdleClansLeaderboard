@@ -506,24 +506,30 @@ function displayUpgrades ()
         upgradesContainer.append(newRow);
     }
 
+
   $("td").each(function() {
     let val = parseFloat($(this).html());
-    let max = parseFloat($(this)[0].dataset.maxval);
-    let perc = val / max * 100;
-         
-    if (perc >= 100)
+    let max = $(this)[0].dataset.maxval;
+    if (max == null) max = 120;
+    else max = parseFloat(max);
+    let perc = val / max;
+
+    if (val > 120 || val.length > 3)
+      $(this).css('background-color', 'unset');
+    else if (perc >= 110/120)
       $(this).css('background-color', '#FDF');
-    else if (val >= 100)
+    else if (perc >= 100/120)
       $(this).css('background-color', '#DDF');
-    else if (val >= 75)
+    else if (perc >= 90/120)
       $(this).css('background-color', '#DFF');
-    else if (val >= 50)
+    else if (perc >= 80/120)
       $(this).css('background-color', '#DFD');
-    else if (val >= 25)
+    else if (perc >= 60/120)
       $(this).css('background-color', '#FFD');
     else
       $(this).css('background-color', '#FDD');
   });
+    
     
   
   $("th").click(function(event){          
@@ -627,29 +633,6 @@ function displayTable ()
   });
 */
 
-  $("td").each(function() {
-    let val = parseFloat($(this).html());
-    let max = $(this)[0].dataset.maxval;
-    if (max == null) max = 120;
-    else max = parseFloat(max);
-    let perc = val / max * 100;
-
-    if (val > 120 || val.length > 3)
-      $(this).css('background-color', 'unset');
-    else if (perc >= 100)
-      $(this).css('background-color', '#FDF');
-    else if (val >= 100)
-      $(this).css('background-color', '#DDF');
-    else if (val >= 75)
-      $(this).css('background-color', '#DFF');
-    else if (val >= 50)
-      $(this).css('background-color', '#DFD');
-    else if (val >= 25)
-      $(this).css('background-color', '#FFD');
-    else
-      $(this).css('background-color', '#FDD');
-  });
-    
     
   $("th").click(function(event){          
     let sk = event.target.id.toLowerCase();
