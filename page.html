@@ -371,11 +371,11 @@ function xpProgress (player, sk)
     
 function calcSkillGroup(player, type)
 {      
-  if (type == "worst combat")
+  if (type == "worstcombat")
   {
     return Math.min(((xpToLvl(player.skillExperiences.attack) + xpToLvl(player.skillExperiences.strength))/2 + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3, (xpToLvl(player.skillExperiences.archery) + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3, (xpToLvl(player.skillExperiences.magic) + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3).toFixed(0);
   }
-  else if (type == "best combat")
+  else if (type == "bestcombat")
     {
       return Math.max(((xpToLvl(player.skillExperiences.attack) + xpToLvl(player.skillExperiences.strength))/2 + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3, (xpToLvl(player.skillExperiences.archery) + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3, (xpToLvl(player.skillExperiences.magic) + xpToLvl(player.skillExperiences.defence) + xpToLvl(player.skillExperiences.health)) / 3).toFixed(0);
     }
