@@ -499,12 +499,31 @@ function displayUpgrades ()
         {
             let key = upgrade.replaceAll(' ', '');
             key = key[0].toLowerCase() + key.slice(1);
-            rowContent += "<td>"+player.upgrades[key]+"</td>";
+            rowContent += "<td id='"+player.name + key+"' maxVal='"+data.tierCost.length+"'>"+player.upgrades[key]+"</td>";
         }
           
         newRow.innerHTML = rowContent;
         upgradesContainer.append(newRow);
     }
+
+  $("td").each(function() {
+    let val = $(this).html()
+    if (val > 120 || val.length > 3)
+      $(this).css('background-color', 'unset');
+    else if (val >= 110)
+      $(this).css('background-color', '#FDF');
+    else if (val >= 100)
+      $(this).css('background-color', '#DDF');
+    else if (val >= 90)
+      $(this).css('background-color', '#DFF');
+    else if (val >= 80)
+      $(this).css('background-color', '#DFD');
+    else if (val >= 60)
+      $(this).css('background-color', '#FFD');
+    else
+      $(this).css('background-color', '#FDD');
+  });
+    
   
   $("th").click(function(event){          
     let sk = event.target.id;
