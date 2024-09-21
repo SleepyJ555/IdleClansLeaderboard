@@ -470,7 +470,7 @@ function displayUpgrades ()
             mainHeaderHTML += "<th id='" + key + "'>" + label + "</th>";
         }
         
-        mainHeaderHTML += "</tr>";
+        mainHeaderHTML += "<th id='totalCost'>Gold Required</th></tr>";
 //        mainHeaderHTML += "<tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
         upgradesContainer.append(mainHeaderHTML);
     }
@@ -494,13 +494,17 @@ function displayUpgrades ()
 
         let newRow = document.createElement("TR");
         let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
+        let totalGold = 0;
 
         for (let [upgrade, data] of Object.entries(marketUpgrades))
         {
             let key = upgrade.replaceAll(' ', '');
             key = key[0].toLowerCase() + key.slice(1);
             rowContent += "<td id='"+player.name + key+"' data-maxval='"+data.tierCost.length+"'>"+player.upgrades[key]+"</td>";
+            totalGold += data.tierCost.slice(player.upgrades[key]).reduce(function(acc, a) { return acc + a; }, 0);
         }
+
+        rowContent += "<td>" + totalGold + "</td>";
           
         newRow.innerHTML = rowContent;
         upgradesContainer.append(newRow);
