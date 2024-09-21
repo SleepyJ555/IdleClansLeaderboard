@@ -540,7 +540,7 @@ function displayUpgrades ()
     
     
   
-  $("th").click(function(event){          
+  $("#upgrades-container th").click(function(event){          
     let sk = event.target.id;
     sortUpgrades(sk);
     event.stopPropagation();
@@ -642,7 +642,7 @@ function displayTable ()
 */
 
     
-  $("th").click(function(event){          
+  $("#main-container th").click(function(event){          
     let sk = event.target.id.toLowerCase();
     sortTable(sk);
     event.stopPropagation();
