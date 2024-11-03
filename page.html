@@ -158,6 +158,9 @@ var input = $('#search-input');
 var mainContainer = $('#main-container');
 var upgradesContainer = $('#upgrades-container');
 var playerList = [
+  {name: "Radyth", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "RadythV2", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
+  {name: "RadythV3", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
   {name: "MomOfChoas", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
   {name: "C410na3r", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
   {name: "Chenson", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
@@ -171,9 +174,6 @@ var playerList = [
   {name: "GrimReaper411", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
   {name: "TrashReaper411", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
   {name: "ElediahReaper", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
-  {name: "Radyth", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
-  {name: "RadythV2", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
-  {name: "RadythV3", skillExperiences: {}, totalXP: 0, totalLvl: 0, upgrades:{}},
 ]
 
 var xpTable = [
@@ -549,15 +549,18 @@ function displayUpgrades ()
     
 function displayTable ()
 {
+    let totalSkills = 0;
+    
     if (mainContainer[0].childElementCount <= 0)
     {
         var mainHeaderHTML = "<tr class='header'><th>Name</th>";
-        
+
         for (let [sk, xp] of Object.entries(playerList[0].skillExperiences))
         {
             let skill = sk;
             skill = skill.charAt(0).toUpperCase() + skill.slice(1);
             mainHeaderHTML += "<th id='"+skill+"'>" + skill + "</th>";
+            totalSkills++;
         }
         
         mainHeaderHTML += "<th id='totalLevels' class='special'>Total Levels</th><th id='worstCombat' class='special'>Worst Combat</th><th id='bestCombat' class='special'>Best Combat</th><th id='reckoning' class='special'>Reckoning</th><th id='guardians' class='special'>Guardians</th><th id='totalXp' class='special'>Total XP</th><th id='average' class='special'>Average</th></tr>";
@@ -593,11 +596,16 @@ function displayTable ()
 
         let newRow = document.createElement("TR");
         let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
-
+        let cnt = 0;
+        
         for (let [sk, xp] of Object.entries(player.skillExperiences))
         {
             rowContent += displayCell(xp, player.skillExperiencesLast[sk], true);
+            cnt++;
         }
+
+        for (let i = 0; i < (totalSkills - cnt); i++)
+            rowContent += displayCell(0, 0);
           
         rowContent += displayCell(player.totalLvl, player.totalLvl);
     
