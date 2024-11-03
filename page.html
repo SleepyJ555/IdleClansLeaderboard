@@ -563,7 +563,9 @@ function displayTable ()
             totalSkills++;
         }
         
-        mainHeaderHTML += "<th id='totalLevels' class='special'>Total Levels</th><th id='worstCombat' class='special'>Worst Combat</th><th id='bestCombat' class='special'>Best Combat</th><th id='reckoning' class='special'>Reckoning</th><th id='guardians' class='special'>Guardians</th><th id='totalXp' class='special'>Total XP</th><th id='average' class='special'>Average</th></tr>";
+        mainHeaderHTML += "<th id='totalLevels' class='special'>Total Levels</th>";
+        // mainHeaderHTML += "<th id='worstCombat' class='special'>Worst Combat</th><th id='bestCombat' class='special'>Best Combat</th><th id='reckoning' class='special'>Reckoning</th><th id='guardians' class='special'>Guardians</th>";
+        mainHeaderHTML += "<th id='totalXp' class='special'>Total XP</th><th id='average' class='special'>Level</th></tr>";
 //        mainHeaderHTML += "<tr><td id='instructions' colspan=27>Hit the 'Pull Data' button the populate scores.</td></tr>";
         mainContainer.append(mainHeaderHTML);
         
@@ -606,9 +608,9 @@ function displayTable ()
 
         for (let i = 0; i < (totalSkills - cnt); i++)
             rowContent += displayCell(0, 0);
-          
+
         rowContent += displayCell(player.totalLvl, player.totalLvl);
-    
+/*    
         let combat = calcSkillGroup(player, "worst combat");
         rowContent += "<td>"+combat+"</td>";
        
@@ -620,7 +622,7 @@ function displayTable ()
     
         raid = calcSkillGroup(player, "guardians");
         rowContent += "<td>"+raid+"</td>";
-    
+  */  
         rowContent += "<td>"+parseInt(player.totalXP).toLocaleString()+"</td>";
         rowContent += "<td>"+xpToLvl(player.totalXP/19)+"</td>";
         newRow.innerHTML = rowContent;
