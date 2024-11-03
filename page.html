@@ -549,8 +549,6 @@ function displayUpgrades ()
     
 function displayTable ()
 {
-    let totalSkills = 0;
-    
     if (mainContainer[0].childElementCount <= 0)
     {
         var mainHeaderHTML = "<tr class='header'><th>Name</th>";
@@ -560,7 +558,6 @@ function displayTable ()
             let skill = sk;
             skill = skill.charAt(0).toUpperCase() + skill.slice(1);
             mainHeaderHTML += "<th id='"+skill+"'>" + skill + "</th>";
-            totalSkills++;
         }
         
         mainHeaderHTML += "<th id='totalLevels' class='special'>Total Levels</th>";
@@ -598,16 +595,11 @@ function displayTable ()
 
         let newRow = document.createElement("TR");
         let rowContent = `<td><b><a href='#' onclick="showPlayerDetails('${player.name}')">${player.name}</a></b></td>`;
-        let cnt = 0;
         
         for (let [sk, xp] of Object.entries(player.skillExperiences))
         {
             rowContent += displayCell(xp, player.skillExperiencesLast[sk], true);
-            cnt++;
         }
-
-        for (let i = 0; i < (totalSkills - cnt); i++)
-            rowContent += displayCell(0, 0);
 
         rowContent += displayCell(player.totalLvl, player.totalLvl);
 /*    
@@ -685,7 +677,13 @@ function fetchPlayerData(player) {
         player.skillExperiencesLast = JSON.parse(JSON.stringify(player.skillExperiences));
         player.skillExperiences = data.skillExperiences;
         player.upgrades = data.upgrades;
-        
+
+        if (player.skillExperiencesLast['Exterminating'] == null)
+            player.skillExperiencesLast['Exterminating'] = 0;
+
+        if (player.skillExperiences['Exterminating'] == null)
+            player.skillExperiences['Exterminating'] = 0;
+          
         let totalXP = 0;
         let totalLvl = 0;
         for (let sk of Object.keys(player.skillExperiences)) {
