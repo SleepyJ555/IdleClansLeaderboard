@@ -678,11 +678,11 @@ function fetchPlayerData(player) {
         player.skillExperiences = data.skillExperiences;
         player.upgrades = data.upgrades;
 
-        if (player.skillExperiencesLast['Exterminating'] == null)
-            player.skillExperiencesLast['Exterminating'] = 0;
+        if (player.skillExperiencesLast['exterminating'] == null)
+            player.skillExperiencesLast['exterminating'] = 0;
 
-        if (player.skillExperiences['Exterminating'] == null)
-            player.skillExperiences['Exterminating'] = 0;
+        if (player.skillExperiences['exterminating'] == null)
+            player.skillExperiences['exterminating'] = 0;
           
         let totalXP = 0;
         let totalLvl = 0;
